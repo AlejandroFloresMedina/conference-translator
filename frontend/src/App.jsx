@@ -1,0 +1,34 @@
+import React, { useState } from "react";
+
+function App() {
+  const [role, setRole] = useState("listener");
+  const [language, setLanguage] = useState("es");
+
+  return (
+    <div style={{ padding: 20 }}>
+      <h1>Conference Translator Prototype</h1>
+      <div>
+        <label>
+          Role:
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="speaker">Speaker</option>
+            <option value="listener">Listener</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>
+          Language:
+          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+          </select>
+        </label>
+      </div>
+      <button>Connect</button>
+    </div>
+  );
+}
+
+export default App;
