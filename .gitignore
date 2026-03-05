@@ -1,0 +1,51 @@
+# ─── OS & Editor ──────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+.env
+.env.*
+!.env.example
+
+# ─── VS Code / JetBrains ──────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── Node (backend + frontend) ────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─── Python (ai-service) ──────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# ─── Whisper model cache ──────────────────────
+*.pt
+~/.cache/whisper/
+
+# ─── React build output ───────────────────────
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# ─── Logs ─────────────────────────────────────
+logs/
+*.log
+
+# ─── LiveKit ──────────────────────────────────
+livekit-data/
