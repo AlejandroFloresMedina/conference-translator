@@ -49,6 +49,7 @@ logs/
 
 # ─── LiveKit ──────────────────────────────────
 livekit-data/
+livekit-data/
 
 #python
 __pycache__/
