@@ -1,0 +1,63 @@
+import React, { useState } from "react";
+import { Room, createLocalAudioTrack } from "livekit-client";
+import axios from "axios";
+
+function App() {
+  const [connected, setConnected] = useState(false);
+
+  const startMic = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/get-token", {
+        room: "conference-room",
+        username: "speaker"
+      });
+
+      const token = response.data.token;
+
+      /* // OPTION B: Use your hardcoded token (Uncomment this to override the backend)
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzIwODY4MTQsImlkZW50aXR5IjoiYWxlamFuZHJvIiwiaXNzIjoiZGV2a2V5IiwibmFtZSI6ImFsZWphbmRybyIsIm5iZiI6MTc3MjAwMDQxNCwic3ViIjoiYWxlamFuZHJvIiwidmlkZW8iOnsicm9vbSI6ImNvbmZlcmVuY2Utcm9vbSIsInJvb21Kb2luIjp0cnVlfX0.aEZXKW5euKzHXfCXyuOtTR3WoluF1LSd5zooSoJ4yBw";
+      */
+      const room = new Room();
+
+      // Connect to the LiveKit server
+      await room.connect("ws://localhost:7880", response.data.token);
+      console.log('Connected to room', room.name);
+
+      // Create and publish the audio track
+      const track = await createLocalAudioTrack({
+        echoCancellation: true,
+        noiseSuppression: true,
+      });
+      await room.localParticipant.publishTrack(track);
+
+      console.log("Mic streaming!");
+      setConnected(true);
+
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Could not connect to LiveKit. Check console for details.");
+    }
+  };
+
+  return (
+    <div style={{ padding: 40 }}>
+      <h1>Church Conference Translator</h1>
+
+      {!connected ? (
+        <button 
+          onClick={startMic}
+          style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}
+        >
+          Start Microphone
+        </button>
+      ) : (
+        <div style={{ color: 'green' }}>
+          <h2>Microphone Live 🎤</h2>
+          <p>The speaker's audio is now being sent to the server.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
