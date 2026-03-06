@@ -49,3 +49,10 @@ logs/
 
 # ─── LiveKit ──────────────────────────────────
 livekit-data/
+livekit-data/
+
+#python
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
